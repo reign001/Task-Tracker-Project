@@ -1,0 +1,79 @@
+body {
+  font-family: Arial, sans-serif;
+  background: url('dg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  padding: 20px;
+}
+
+.container {
+  max-width: 950px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: rgba(19, 19, 222, 0.849);
+}
+
+h2 {
+  text-align: center;
+}
+
+form,
+table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+input,
+select,
+button {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background: #eee;
+}
+
+.actions button {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* responsive design */
+@media (max-width: 768px) {
+  #employee-form {
+    padding: 15px;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 0.95rem;
+  }
+
+  table,
+  th,
+  td {
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+}

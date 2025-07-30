@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Task Tracker{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div style="text-align: center; margin-bottom: 20px;">
+        {% if current_user.is_authenticated %}
+            <span>Welcome, {{ current_user.first_name }}!</span> |
+            <a href="{{ url_for('main.dashboard') }}">Home</a> |
+
+            {% if current_user.role == 'admin' %}
+                <a href="{{ url_for('main.add_employee') }}">Add Employee</a> |done
+                <a href="{{ url_for('main.view_employees') }}">View Employees</a> done |
+                <a href="{{ url_for('main.add_task') }}">Assign Task</a> |done
+                <a href="{{ url_for('main.view_tasks') }}">View Tasks</a> | done
+                <a href="{{ url_for('main.add_cycle') }}">Add Cycle</a> | done
+                <a href="{{ url_for('main.cycle_history') }}">Cycle History</a> done|
+                <a href="{{ url_for('main.compute_salary') }}">Compute Salary</a> | done
+            {% elif current_user.role == 'task_admin' %}
+                <a href="{{ url_for('main.add_task') }}">Assign Task</a> |
+                <a href="{{ url_for('main.view_tasks') }}">View Tasks</a> |
+            {% endif %}
+
+            {% if current_user.role == 'admin' or current_user.role == 'super_admin' %}
+              <a href="{{ url_for('main.view_salary_logs') }}" class="btn btn-primary">Salary Log</a>
+            {% endif %} |
+            <a href="{{ url_for('main.logout') }}">Logout</a>
+            {% else %}
+            <a href="{{ url_for('main.login_view') }}">Login</a>
+        {% endif %}
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul style="color: red;">
+          {% for category, message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>

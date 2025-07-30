@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Task Tracker{% endblock %}</title>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/land.css')}}">
+</head>
+
+<body data-role="admin">
+  <!-- Container to load sidebar -->
+  <div id="sidebar-container"></div>
+
+  <header>
+    <h1>DUNAMIS TASK MANAGER</h1>
+  {% if current_user.is_authenticated%}
+      <span>Welcome, {{ current_user.first_name }}!</span>
+  {% else %}
+      <a href="{{ url_for('main.login_view') }}">Login</a>
+  {% endif %}
+  </header>
+
+  <main class="dashboard">
+  {% if current_user.is_authenticated %}
+        {% if current_user.role == 'admin' or current_user.role == 'super_admin' %}
+        <div class="card">
+            <a href="{{ url_for('main.add_employee') }}">Add Employee</a>
+        </div>
+        <div class="card">
+          <a href="{{ url_for('main.view_employees') }}">View Employees</a>
+        </div>
+        <div class="card">
+          <a href="{{ url_for('main.add_task') }}">Assign Task</a>
+        </div>
+        <div class="card">
+          <a href="{{ url_for('main.view_tasks') }}">View Tasks</a>
+        </div>
+        <div class="card">
+          <a href="{{ url_for('main.add_cycle') }}">Add Cycle</a>
+        </div>
+        <div class="card">
+          <a href="{{ url_for('main.cycle_history') }}">Cycle History</a>
+        </div>
+        <div class="card">
+          <a href="{{ url_for('main.compute_salary') }}">Compute Salary</a>
+        </div>
+        <div class="card">
+          <a href="{{ url_for('main.view_salary_logs') }}" class="btn btn-primary">Salary Log</a>
+        </div>
+        {% elif current_user.role == 'task_admin' %}
+        <div class="card">
+          <a href="{{ url_for('main.add_task') }}">Assign Task</a>
+        </div>
+        <div class="card">
+          <a href="{{ url_for('main.view_tasks') }}">View Tasks</a>
+        </div>
+        {% endif %} 
+        <div class="card">
+            <a href="{{ url_for('main.logout') }}">Logout</a>
+        </div>
+  {% endif %}
+  </main>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul style="color: red;">
+          {% for category, message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    
+</body>
+
+  <footer>
+    <p>&copy; 2025 Task Tracker Pro</p>
+  </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <section class="l1nks" id="employees">
+      <div class="section-box">
+        <h2>Employees</h2>
+        <p>Manage all your employees, add new ones, and view their details such as email, status, and daily salary.</p>
+        <p><a href="emp.html">Go to Employee Page →</a></p>
+      </div>
+    </section>
+  
+    <section id="tasks">
+      <div class="section-box">
+        <h2>Tasks</h2>
+        <p>Create, assign, and monitor task progress for each employee. Set priorities, track deadlines, and status.</p>
+        <p><a href="index.html">Go to Tasks Page →</a></p>
+      </div>
+    </section>
+  
+    <section id="working-cycle">
+      <div class="section-box">
+        <h2>Working Cycle</h2>
+        <p>Track working periods of employees, start and end dates, and view their current activity status.</p>
+        <p><a href="cycle.html">Go to Working Cycle Page →</a></p>
+      </div>
+    </section>
+
+
+
+    <section id="projects" class="projects">
+      <div class="project-cards">
+          <div class="card">
+              <h3>Employee</h3>
+              <a href="emp.html"><button>GO</button></a>
+          </div>
+          <div class="card">
+              <h3>Work Cycle</h3>
+              <a href="cycle.html"><button>GO</button></a>
+          </div>
+           Add more project cards as needed #
+      </div>
+  </section>-->
+
+
+
+
+  <!-- landing.js-->
+  <!-- <script>
+
+    function navigate(page) {
+      window.location.href = page;
+    }
+
+  </script>
+  <script src="sidebar.js"></script>
+  <!-- Role Filtering Script -->
+  <!-- <script>
+    // Replace this with the actual user role from login/session
+    const currentUserRole = 'employee'; // or 'admin'
+
+    // Load sidebar
+    fetch('sidebar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('sidebar-container').innerHTML = data;
+
+        // Filter links based on role
+        const allLinks = document.querySelectorAll('.nav-link');
+        allLinks.forEach(link => {
+          if (!link.classList.contains(`role-${currentUserRole}`)) {
+            link.style.display = 'none';
+          }
+        });
+      });
+
+    // Get the current user's role from localStorage
+    const CurrentUserRole = localStorage.getItem('userRole') || 'employee';
+
+    // Get the required role for this page
+    const pageRole = document.body.getAttribute('data-role');
+
+    // Redirect if access is not allowed
+    if (
+      (pageRole === 'admin' && currentUserRole !== 'admin') ||
+      (pageRole === 'employee' && currentUserRole !== 'employee')
+    ) {
+      alert("Access Denied: Unauthorized role");
+      window.location.href = "login.html"; // Redirect to login or error page
+    }
+  </script> -->
+</body>
+
+</html>

@@ -1,0 +1,175 @@
+{% block title %}Cycle History{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f3f3f8;
+        padding: 20px;
+        color: #333;
+    }
+
+    h2 {
+        text-align: center;
+        color: #4a148c;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        max-width: 1000px;
+        margin: auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    }
+
+    th, td {
+        padding: 14px 16px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        font-size: 15px;
+    }
+
+    th {
+        background-color: #ede7f6;
+        color: #4a148c;
+        font-weight: bold;
+    }
+
+    tr:hover {
+        background-color: #f3e5f5;
+    }
+
+    button {
+        padding: 8px 14px;
+        font-size: 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        margin: 4px 0;
+    }
+
+    button[type="submit"] {
+        background-color: #6a1b9a;
+        color: #fff;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #4a148c;
+    }
+
+    button[type="button"] {
+        background-color: #009688;
+        color: white;
+    }
+
+    button[type="button"]:hover {
+        background-color: #00796b;
+    }
+
+    .home-button {
+        display: block;
+        margin: 40px auto 0;
+        padding: 12px 24px;
+        background-color: #4a148c;
+        color: white;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        width: fit-content;
+    }
+
+    .home-button:hover {
+        background-color: #6a1b9a;
+    }
+
+    form {
+        display: inline-block;
+    }
+
+    @media (max-width: 768px) {
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+
+        tr {
+            margin-bottom: 15px;
+            background: #fff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.05);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        th {
+            display: none;
+        }
+
+        td {
+            text-align: left;
+            position: relative;
+            padding-left: 50%;
+        }
+
+        td::before {
+            position: absolute;
+            top: 12px;
+            left: 16px;
+            width: 45%;
+            white-space: nowrap;
+            font-weight: bold;
+            color: #4a148c;
+        }
+
+        td:nth-of-type(1)::before { content: "Name"; }
+        td:nth-of-type(2)::before { content: "Start Date"; }
+        td:nth-of-type(3)::before { content: "End Date"; }
+        td:nth-of-type(4)::before { content: "Status"; }
+        td:nth-of-type(5)::before { content: "Action"; }
+    }
+</style>
+
+<h2>Cycle History</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cycle in cycles %}
+        <tr>
+            <td>{{ cycle.name }}</td>
+            <td>{{ cycle.start_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ cycle.end_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ "Active" if cycle.is_active else "Inactive" }}</td>
+            <td>
+                <form action="{{ url_for('main.toggle_cycle', cycle_id=cycle.id) }}" method="POST">
+                    {% if cycle.is_active %}
+                        <button type="submit" onclick="return confirm('Deactivate this cycle?')">Deactivate</button>
+                    {% else %}
+                        <button type="submit" onclick="return confirm('Activate this cycle?')">Activate</button>
+                    {% endif %}
+                </form>
+                <a href="{{ url_for('main.cycle_detail', cycle_id=cycle.id) }}">
+                    <button type="button">View Detail</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Home Button -->
+<a href="{{ url_for('main.home' }}" class="home-button">🏠 Back to Home</a>
+{% endblock %}

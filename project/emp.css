@@ -1,0 +1,85 @@
+body{
+  background-color: rgb(110, 66, 110);
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  button {
+    margin-top: 10px;
+    padding: 10px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #555;
+  }
+  
+  #employee-form {
+    margin-top: 20px;
+    background: rgba(6, 9, 178, 0.95);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  form input,
+  form select {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  #employee-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 500px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  #employee-form form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #employee-form h2 {
+    text-align: center;
+  }
+
+  /* responsive design */
+  @media (max-width: 768px) {
+    #employee-form {
+      padding: 15px;
+    }
+  
+    input, select, button {
+      font-size: 0.95rem;
+    }
+  
+    table, th, td {
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+  }

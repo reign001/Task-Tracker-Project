@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Salary Page</title>
+    <link rel="stylesheet" href="salary.css" />
+</head>
+
+<body>
+
+
+
+
+
+    <div class="container">
+
+
+        <header>
+            <h1>Employee Salary Overview</h1>
+        </header>
+
+        <!-- 🔍 Search Bar -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search by name or ID..." />
+            <button onclick="searchSalary()">Search</button>
+        </div>
+
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Employee ID</td>
+                        <td>Total Tasks</td>
+                        <td>Completed</td>
+                        <td>Missed</td>
+                        <td>Deduction per missed Task</td>
+                        <td>Gross Salary</td>
+                        <td>Total Deduction</td>
+                        <td>Net Salary</td>
+                    </tr>
+                </thead>
+                <tbody id="salaryTable">
+                    <!-- Data loaded by JS -->
+                </tbody>
+            </table>
+        </main>
+
+        <script src="salary.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,191 @@
+{% block title %}Employee Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f7f9fc;
+        padding: 20px;
+        color: #333;
+    }
+
+    .dashboard-container {
+        max-width: 1000px;
+        margin: auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    h2, h3 {
+        color: #4a148c;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    p, li {
+        font-size: 16px;
+        margin: 8px 0;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+        padding: 14px;
+        border-bottom: 1px solid #eaeaea;
+        text-align: center;
+    }
+
+    th {
+        background-color: #6a1b9a;
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    li {
+        margin: 10px 0;
+    }
+
+    hr {
+        margin: 30px 0;
+        border: none;
+        border-top: 1px solid #ddd;
+    }
+
+    .status-completed {
+        color: green;
+        font-weight: bold;
+    }
+
+    .status-missed {
+        color: red;
+        font-weight: bold;
+    }
+
+    .status-pending {
+        color: orange;
+        font-weight: bold;
+    }
+
+    .logout-button {
+        display: block;
+        width: 200px;
+        margin: 40px auto 0;
+        text-align: center;
+        background-color: #c62828;
+        color: white;
+        padding: 14px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+        background-color: #b71c1c;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-container {
+            padding: 20px;
+        }
+
+        table, thead, tbody, th, td, tr {
+            font-size: 14px;
+        }
+
+        .logout-button {
+            width: 100%;
+            padding: 12px;
+        }
+    }
+</style>
+
+<div class="dashboard-container">
+    <h2>Welcome, {{ current_user.first_name }} 👋</h2>
+
+    {% if active_cycle %}
+        <h3>📆 Current Cycle: {{ active_cycle.start_date }} → {{ active_cycle.end_date }}</h3>
+        <p><strong>Cycle Name:</strong> {{ active_cycle.start_date.strftime('%B %Y') }}</p>
+        <p><strong>Days Remaining:</strong> {{ countdown_days }} days</p>
+
+        <hr>
+        <h3>🗂️ Assigned Tasks</h3>
+        {% if tasks %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Assigned On</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.start_date.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            {% if task.completed %}
+                                <span class="status-completed">✅ Completed</span>
+                            {% elif task.start_date < date_today %}
+                                <span class="status-missed">❌ Missed</span>
+                            {% else %}
+                                <span class="status-pending">⏳ Pending</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No tasks assigned in this cycle.</p>
+        {% endif %}
+    {% else %}
+        <p>No active working cycle at the moment.</p>
+    {% endif %}
+
+    <hr>
+    <h3>📊 Performance Summary</h3>
+    <ul>
+        <li><strong>Total Tasks:</strong> {{ total_tasks }}</li>
+        <li><strong>Completed:</strong> {{ completed_tasks }}</li>
+        <li><strong>Missed:</strong> {{ missed_tasks }}</li>
+        <li><strong>Performance:</strong> {{ performance_percent }}%</li>
+    </ul>
+
+    <hr>
+    <h3>🧾 Salary Summary</h3>
+    {% if salary_log %}
+        <ul>
+            <li><strong>Amount Earned:</strong> ₦{{ salary_log.amount_earned }}</li>
+            <li><strong>Deductions:</strong> ₦{{ salary_log.deductions }}</li>
+            <li><strong>Net Salary:</strong> ₦{{ salary_log.net_salary }}</li>
+        </ul>
+    {% else %}
+        <p>No salary log available for this cycle.</p>
+    {% endif %}
+
+            <a href="{{ url_for('main.home') }}" class="btn btn-home">
+            🏠 Back to Home
+        </a>
+</div>
+
+{% endblock %}

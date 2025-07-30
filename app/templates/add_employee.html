@@ -1,0 +1,179 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Employee</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f4f4f8;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            background: #fff;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #4a148c;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .nav-buttons a {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #4a148c;
+        }
+
+        ul {
+            max-width: 600px;
+            margin: 20px auto;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li.success {
+            color: green;
+        }
+
+        li.error {
+            color: red;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            input, select, button {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Add New Employee</h2>
+        <form method="POST">
+            <label>First Name:</label>
+            <input type="text" name="first_name" required>
+
+            <label>Surname:</label>
+            <input type="text" name="surname" required>
+
+            <label>Other Names:</label>
+            <input type="text" name="other_names">
+
+            <label>Email:</label>
+            <input type="email" name="email" required>
+
+            <label>Phone:</label>
+            <input type="text" name="phone">
+
+            <label>Salary Per Day:</label>
+            <input type="number" name="salary_per_day" step="0.01">
+
+            <label>Status:</label>
+            <select name="status">
+                <option value="full-time">Full-Time</option>
+                <option value="part-time">Part-Time</option>
+            </select>
+
+            <label>Office:</label>
+            <select name="office">
+                <option value="instrumentalist">Instrumentalist</option>
+                <option value="dunamis_tv">Dunamis TV</option>
+                <option value="dunamis_tv">Sound</option>
+            </select>
+
+            <label>Role:</label>
+            <select name="role">
+                <option value="employee">Employee</option>
+                <option value="task_admin">Task Admin</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <button type="submit">Add Employee</button>
+        </form>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <div class="nav-buttons">
+        <a href="{{ url_for('main.view_employees') }}">👥 View Employees</a>
+        <a href="{{ url_for('main.home') }}">🏠 Home</a>
+    </div>
+
+</body>
+</html>
+{% endblock %}

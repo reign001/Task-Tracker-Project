@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="emp.css">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+
+  <div class="container">
+    <div id="dash-view">
+      <!-- Add Employee Form -->
+      <div id="employee-form">
+        <h2>Add Employee</h2>
+        <form id="add-employee-form" onsubmit="addEmployee(event)">
+          <input type="text" name="firstName" placeholder="First Name" required />
+          <input type="text" name="surname" placeholder="Surname" required />
+          <input type="text" name="otherNames" placeholder="Other Names" />
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="tel" name="phone" placeholder="Phone Number" required />
+          <select name="status" required>
+            <option value="">Select Status</option>
+            <option value="active">Full-Time</option>
+            <option value="inactive">Part-Time</option>
+          </select>
+          <select name="status" required>
+            <option value="">Select Department</option>
+            <option value="active">DUNAMIS TV</option>
+            <option value="inactive">DVI MUSICIAN</option>
+          </select>
+          <input type="number" name="salaryPerDay" placeholder="Salary per Day (₦)" min="0" required />
+          <button type="submit">Save Employee</button>
+        </form>
+      </div>
+
+      <!-- Employee Table -->
+      <div id="employee-table" style="margin-top: 20px;">
+        <h2>Employee List</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Department</th>
+              <th>Salary/Day</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="employee-list"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="empfront.js"></script>
+  <script src="empback.js"></script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Working Cycle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f5f5fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #4a148c;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .form-section, .table-section {
+            flex: 1 1 45%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            min-width: 300px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            width: 100%;
+            background-color: #6a1b9a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4a148c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #eee;
+        }
+
+        .btn-home {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .btn-home a {
+            text-decoration: none;
+            background-color: #6a1b9a;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .btn-home a:hover {
+            background-color: #4a148c;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .form-section, .table-section {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Form Section -->
+    <div class="form-section">
+        <h2>Add New Working Cycle</h2>
+        <form method="POST">
+            <label>Name (e.g., July 2025):</label>
+            <input type="text" name="name" placeholder="e.g. July 2025" required>
+
+            <label>Start Date:</label>
+            <input type="date" name="start_date" required>
+
+            <label>End Date:</label>
+            <input type="date" name="end_date" required>
+
+            <button type="submit">➕ Add Cycle</button>
+        </form>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-section">
+        <h3>Existing Cycles</h3>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Status</th>
+            </tr>
+            {% for cycle in all_cycles %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ cycle.name }}</td>
+                <td>{{ cycle.start_date }}</td>
+                <td>{{ cycle.end_date }}</td>
+                <td>{{ 'Active' if cycle.is_active else 'Inactive' }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<div class="btn-home">
+    <a href="{{ url_for('main.home') }}">🏠 Go to Home</a>
+</div>
+
+</body>
+</html>

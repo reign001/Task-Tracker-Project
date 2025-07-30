@@ -1,0 +1,85 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: url('dg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(46, 2, 61, 0.806);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+/* (Keep other styles like input, button, etc. the same) */
+
+.ij{
+    color: white;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    width: 50%;
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #510074;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {  
+    background-color: #0056b3;
+}
+
+h1,
+h2 {
+    margin-top: 0;
+    color: #726dd3;
+}
+
+#task-list {
+    margin-top: 20px;
+}
+
+.task-item {
+    background: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 4px solid #007bff;
+    border-radius: 4px;
+}
+
+
+ /* responsive design */
+ @media (max-width: 768px) {
+    #employee-form {
+      padding: 15px;
+    }
+  
+    input, select, button {
+      font-size: 0.95rem;
+    }
+  
+    table, th, td {
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+  }
