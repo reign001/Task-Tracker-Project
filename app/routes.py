@@ -167,21 +167,21 @@ def add_employee():
 
         # ✉️ Send email with credentials
         try:
-            subject = "Your Account Login - Dunamis HR Portal"
+            subject = "Your Account Login - Dunamis TV Management"
             body = f"""
 Dear {first_name},
 
-Welcome to the Dunamis International Gospel Centre Team!
+Welcome to the Dunamis International Gospel Centre!
 
 🎉 Your account has been created with the following credentials:
 
 📧 Email: {email}
 🔐 Password: {raw_password}
 
-Please log in immediately and reset your password.
+Congratulation!.
 
 Blessings,  
-DUNAMIS HR TEAM
+DUNAMIS TV Management
 """
             msg = Message(subject, recipients=[email], body=body)
             mail.send(msg)
@@ -265,7 +265,7 @@ def add_task():
 
         # Email notification
         try:
-            subject = f"New Task for {active_cycle.name}"
+            subject = f"Dunamis! New Task for {active_cycle.name}"
             body = f"""
 Dear {employee.first_name},
 
@@ -278,7 +278,7 @@ A new task has been assigned to you under the cycle **{active_cycle.name}**:
 Please complete the task before the deadline.
 
 Blessings,  
-DUNAMIS HR TEAM
+DUNAMIS TV Management
 """
             msg = Message(subject, recipients=[employee.email], body=body)
             mail.send(msg)
@@ -307,7 +307,7 @@ def delete_task(task_id):
         db.session.commit()
 
         # Email to inform the employee
-        subject = "Task Cancelled"
+        subject = "Dunamis! Task Cancelled"
         body = f"""
 Dear {employee.first_name},
 
@@ -319,7 +319,7 @@ Originally Due: {task.due_date.strftime('%Y-%m-%d')}
 No action is required on your part.
 
 Blessings,  
-DUNAMIS HR TEAM
+DUNAMIS TV Management
 """
         msg = Message(subject, recipients=[employee.email], body=body)
         mail.send(msg)
@@ -357,7 +357,7 @@ def update_task_status(task_id):
     ⚠ A deduction of ₦{deduction} will apply to your monthly allowance as a result.
 
     Blessings,  
-    DUNAMIS HR TEAM
+    DUNAMIS TV Management
     """)
 
     db.session.commit()
@@ -369,10 +369,6 @@ def update_task_status(task_id):
 @main.route('/cycle/add', methods=['GET', 'POST'])
 @login_required
 def add_cycle():
-    # if current_user.role not in ['admin', 'superadmin']:
-    #      flash("Unauthorized access", "danger")
-    #      return redirect(url_for('main.dashboard'))
-
     if request.method == 'POST':
         try:
             start_date_str = request.form.get('start_date')
@@ -453,7 +449,7 @@ def compute_salary():
 
         # Send salary summary email
         try:
-            subject = f"💼 Salary Summary - {active_cycle.name}"
+            subject = f"Dunamis! 💼 Salary Summary - {active_cycle.name}"
             body = f"""
 Dear {emp.first_name},
 
@@ -469,7 +465,7 @@ Your salary summary for the cycle **{active_cycle.name}**:
 Thank you for your dedication.
 
 Blessings,  
-DUNAMIS HR TEAM
+DUNAMIS TV Management
 """
             msg = Message(subject, recipients=[emp.email], body=body)
             mail.send(msg)
@@ -574,10 +570,6 @@ def reset_password():
 @main.route('/cycle/toggle/<int:cycle_id>', methods=['POST'])
 @login_required
 def toggle_cycle(cycle_id):
-    # if current_user.role not in ['admin', 'superadmin']:
-    #     flash("Unauthorized access", "danger")
-    #     return redirect(url_for('main.dashboard'))
-
     cycle = WorkingCycle.query.get_or_404(cycle_id)
     cycle.is_active = not cycle.is_active
     db.session.commit()
@@ -590,10 +582,6 @@ def toggle_cycle(cycle_id):
 @main.route('/cycle/history')
 @login_required
 def cycle_history():
-    # if current_user.role not in ['admin', 'superadmin']:
-    #     flash("Unauthorized access", "danger")
-    #     return redirect(url_for('main.dashboard'))
-
     cycles = WorkingCycle.query.order_by(WorkingCycle.start_date.desc()).all()
     print("✅ cycle_history route hit. Found cycles:", cycles)
     return render_template('cycle_history.html', cycles=cycles)
@@ -601,10 +589,6 @@ def cycle_history():
 @main.route('/cycle/<int:cycle_id>/detail')
 @login_required
 def cycle_detail(cycle_id):
-    # if current_user.role not in ['admin', 'superadmin']:
-    #     flash("Unauthorized access", "danger")
-    #     return redirect(url_for('main.dashboard'))
-
     cycle = WorkingCycle.query.get_or_404(cycle_id)
     
     # Get all tasks and salary logs within this cycle
@@ -658,10 +642,6 @@ def employee_dashboard():
 @main.route('/tasks')
 @login_required
 def view_tasks():
-    # if current_user.role not in ['admin', 'task_admin', 'employee']:
-    #     flash("Access denied.", "danger")
-    #     return redirect(url_for('main.dashboard'))
-
     tasks = Task.query.order_by(Task.start_date.desc()).all()
     return render_template('add_task.html', tasks=tasks)
 

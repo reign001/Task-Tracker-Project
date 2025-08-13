@@ -1,4 +1,4 @@
-__pycache__/
+__pycache__
 *.pyc
 instance/
 .env
@@ -6,3 +6,4 @@ venv/
 *.log
 *.db
 .env.*
+__init__

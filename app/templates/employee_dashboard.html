@@ -119,7 +119,7 @@
 </style>
 
 <div class="dashboard-container">
-    <h2>Welcome, {{ current_user.first_name }} 👋</h2>
+    <h2>Welcome, {{ current_user.first_name }}</h2>
 
     {% if active_cycle %}
         <h3>📆 Current Cycle: {{ active_cycle.start_date }} → {{ active_cycle.end_date }}</h3>
